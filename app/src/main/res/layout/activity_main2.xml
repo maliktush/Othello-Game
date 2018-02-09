@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#d6f5d6"
+    tools:context="com.tusharmalik.othello.Main2Activity">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/t1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTHELLO GAME"
+        android:gravity="center"
+        android:textSize="60dp"
+        android:textColor="@android:color/holo_green_dark"
+        />
+
+    <Button
+        android:textSize="40dp"
+        android:background="#85e085"
+        android:id="@+id/t2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/t1"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="12dp"
+        android:text="START GAME" />
+
+    <ImageView
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/t2"
+        android:src="@drawable/head"/>
+
+</RelativeLayout>

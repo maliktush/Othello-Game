@@ -1,7 +1,7 @@
 package com.tusharmalik.othello;
 
 /**
- * Created by tushm on 01-01-2018.
+ * Created by tushm on 08-02-2018.
  */
 
 public class Board {
@@ -106,13 +106,13 @@ public class Board {
                                 continue;
                             }
                             if(board[nRow][nCol]==this.currp.getColor()) {
-                                    for(int flipDist=1;flipDist<range;flipDist++) {
-                                        int finalRow=row+flipDist*dirRow;
-                                        int finalCol=col+flipDist*dirCol;
-                                        if(board[finalRow][finalCol]==oppoColor) {
-                                            board[finalRow][finalCol]=this.currp.getColor();
-                                        }
+                                for(int flipDist=1;flipDist<range;flipDist++) {
+                                    int finalRow=row+flipDist*dirRow;
+                                    int finalCol=col+flipDist*dirCol;
+                                    if(board[finalRow][finalCol]==oppoColor) {
+                                        board[finalRow][finalCol]=this.currp.getColor();
                                     }
+                                }
                                 break;
                             }
                         }

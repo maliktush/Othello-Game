@@ -1,25 +1,29 @@
 package com.tusharmalik.othello;
 
-import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    public Button[][] ib = new Button[8][8];
+    public ImageButton[][] ib = new ImageButton[8][8];
     private Board b=new Board();
     public Button newgame;
     public Button current,p1,p2,totrem;
     int rem=60;
     int turn=1;
+    RelativeLayout rl1;
+    int t=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         newgame=findViewById(R.id.btnRestart);
+        rl1=findViewById(R.id.rl1);
         ib[0][0] = findViewById(R.id.b11);
         ib[0][1] = findViewById(R.id.b12);
         ib[0][2] = findViewById(R.id.b13);
@@ -94,10 +98,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 b.StartGame();
                 printboard();
-                current.setText("Curr Player:1");
-                p1.setText("Player 1 : " + b.count(COLOR.BLACK));
-                p2.setText("Player 0 : " + b.count(COLOR.WHITE));
+//                if(t==1) {
+//                    current.setText("Curr Player : Green");
+                    rl1.setBackgroundColor(Color.GREEN);
+                    newgame.setTextColor(Color.GREEN);
+                    current.setTextColor(Color.GREEN);
+                    p1.setTextColor(Color.GREEN);
+                    p2.setTextColor(Color.GREEN);
+                    totrem.setTextColor(Color.GREEN);
+//                }
+//                if(t==0){
+//                    current.setText("Curr Player : Red");
+//                    rl1.setBackgroundColor(Color.RED);
+//                    newgame.setTextColor(Color.RED);
+//                    current.setTextColor(Color.RED);
+//                    p1.setTextColor(Color.RED);
+//                    p2.setTextColor(Color.RED);
+//                    totrem.setTextColor(Color.RED);
+//                }
+                current.setText("Curr Player : Green");
+                p1.setText("Player Green : " + b.count(COLOR.BLACK));
+                p2.setText("Player Red : " + b.count(COLOR.WHITE));
                 totrem.setText("Remaining: 60");
+                rem=60;
 
             }
         });
@@ -316,8 +339,8 @@ public class MainActivity extends AppCompatActivity {
             if(b.possible(row,col)) {
                 b.flipit(row, col);
                 b.place(row, col);
-                p1.setText("Player 1 : " + b.count(COLOR.BLACK));
-                p2.setText("Player 0 : " + b.count(COLOR.WHITE));
+                p1.setText("Player Green : " + b.count(COLOR.BLACK));
+                p2.setText("Player Red : " + b.count(COLOR.WHITE));
                 rem--;
                 totrem.setText("Remaining: "+rem);
                 printboard();
@@ -326,19 +349,19 @@ public class MainActivity extends AppCompatActivity {
                     b.changep();
                     buttonChange(current);
                     if (!Haspossiblemove()) {
-                        Toast.makeText(MainActivity.this, "No move available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "No move available", Toast.LENGTH_LONG).show();
                         b.changep();
                         buttonChange(current);
                         if (!Haspossiblemove()) {
-                            Toast.makeText(MainActivity.this, "No move available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "No move available", Toast.LENGTH_LONG).show();
                             winner();
                         }
                     }
                 }
 
-                    if (b.checkend()) {
-                        winner();
-                    }
+                if (b.checkend()) {
+                    winner();
+                }
 
             }
         }
@@ -349,9 +372,24 @@ public class MainActivity extends AppCompatActivity {
     }
     public void buttonChange(Button img_button) {
         if (b.getCurrentPlayer().getColor() == COLOR.BLACK) {
-            img_button.setText("curr player:1");
+            t=1;
+            img_button.setText("curr player : Green");
+            rl1.setBackgroundColor(Color.GREEN);
+            newgame.setTextColor(Color.GREEN);
+            current.setTextColor(Color.GREEN);
+            p1.setTextColor(Color.GREEN);
+            p2.setTextColor(Color.GREEN);
+            totrem.setTextColor(Color.GREEN);
+
         } else if (b.getCurrentPlayer().getColor() == COLOR.WHITE) {
-            img_button.setText("curr player:0");
+            t=0;
+            img_button.setText("curr player : Red");
+            rl1.setBackgroundColor(Color.RED);
+            newgame.setTextColor(Color.RED);
+            current.setTextColor(Color.RED);
+            p1.setTextColor(Color.RED);
+            p2.setTextColor(Color.RED);
+            totrem.setTextColor(Color.RED);
         } else {
             img_button.setText("");
         }
@@ -361,13 +399,15 @@ public class MainActivity extends AppCompatActivity {
         for(int i= 0;i<8;i++){
             for(int j=0;j<8;j++){
                 if(b.getBoard()[i][j]== COLOR.BLACK){
-                    ib[i][j].setText("1");
+                    ib[i][j].setImageResource(R.drawable.black);
+
                 }
                 if(b.getBoard()[i][j]== COLOR.WHITE){
-                    ib[i][j].setText("0");
+                    ib[i][j].setImageResource(R.drawable.white);
+
                 }
                 if(b.getBoard()[i][j]== COLOR.EMPTY){
-                    ib[i][j].setText("");
+                    ib[i][j].setImageResource(R.drawable.transparent);;
                 }
             }
         }
@@ -378,17 +418,29 @@ public class MainActivity extends AppCompatActivity {
             for (int j = 0; j < 8; j++) {
                 if(b.possible(i,j)){
                     return true;
+                }
             }
         }
-            }
-            return false;
+        return false;
     }
     public void winner(){
         if(b.count(COLOR.BLACK)>b.count(COLOR.WHITE)){
-            Toast.makeText(MainActivity.this, "Player 1 wins ", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Player Green wins ", Toast.LENGTH_LONG).show();
+            rl1.setBackgroundColor(Color.GREEN);
+            newgame.setTextColor(Color.GREEN);
+            current.setTextColor(Color.GREEN);
+            p1.setTextColor(Color.GREEN);
+            p2.setTextColor(Color.GREEN);
+            totrem.setTextColor(Color.GREEN);
         }
         else if(b.count(COLOR.BLACK)<b.count(COLOR.WHITE)){
-            Toast.makeText(MainActivity.this, "Player 0 wins", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Player Red wins", Toast.LENGTH_SHORT).show();
+            rl1.setBackgroundColor(Color.RED);
+            newgame.setTextColor(Color.RED);
+            current.setTextColor(Color.RED);
+            p1.setTextColor(Color.RED);
+            p2.setTextColor(Color.RED);
+            totrem.setTextColor(Color.RED);
         }
         else  if(b.count(COLOR.BLACK)==b.count(COLOR.WHITE)){
             Toast.makeText(MainActivity.this, "Its a tie", Toast.LENGTH_SHORT).show();
