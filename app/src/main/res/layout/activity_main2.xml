@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#d6f5d6"
+    android:background="#000000"
     tools:context="com.tusharmalik.othello.Main2Activity">
     <TextView
         android:layout_marginTop="10dp"
@@ -16,12 +16,12 @@
         android:text="OTHELLO GAME"
         android:gravity="center"
         android:textSize="60dp"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="#00ff40"
         />
 
     <Button
         android:textSize="40dp"
-        android:background="#85e085"
+        android:background="#ff0000"
         android:id="@+id/t2"
         android:layout_width="match_parent"
         android:layout_height="70dp"
